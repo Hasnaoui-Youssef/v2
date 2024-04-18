@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Room</title>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+    const roomID = new URLSearchParams(window.location.search).get('room'); // Get room ID from URL
+
+    const userContainer = document.getElementById('users'); // Element to display joined users
+
+    // Function to display joined users (placeholder)
+    function updateUserList(users) {
+      userContainer.innerHTML = ''; // Clear existing users
+      users.forEach(userID => {
+        const userElement = document.createElement('p');
+        userElement.textContent = `User ${userID} connected`;
+        userContainer.appendChild(userElement);
+      });
+    }
+
+    socket.on('connect', () => {
+      socket.emit('joinRoom', roomID); // Automatically join the room on connect
+    });
+
+    socket.on('userJoined', (userID) => {
+      console.log('User', userID, 'joined the room');
+      // Update user list (implement updateUserList function for visual display)
+      // updateUserList([userID]); // Example usage for single user join
+    });
+    
+
+    // Potential future enhancements (consider implementing these based on your needs):
+    // - Handle user disconnects and update the user list accordingly
+    // - Add chat functionality using socket.io events (e.g., 'message', 'messageSent')
+    // - Implement room management features (e.g., kicking users, room deletion)
+  </script>
+</head>
+<body>
+  <h1 id="room-id"></h1>
+  <div id="users"></div> </body>
+  <script>
+    const text = document.getElementById("room-id");
+    text.innerText = `room ID : ${roomID}`;
+  </script>
+</html>

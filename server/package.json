@@ -1,0 +1,21 @@
+{
+  "name": "undercover-server-side",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon"
+  },
+  "author": "Youssef Hasnaoui",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "node": "^18.20.2",
+    "socket.io": "^4.7.5",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

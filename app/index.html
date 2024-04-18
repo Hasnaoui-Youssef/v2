@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Room App</title>
+  <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+  <h1>Room App</h1>
+  <button id="createRoom">Create Room</button>
+  <br>
+  <label for="roomID">Join Room: </label>
+  <input type="text" id="roomID" placeholder="Enter Room ID">
+  <button id="joinRoom">Join Room</button>
+  <script defer>
+    const socket = io();
+
+    const createRoomButton = document.getElementById('createRoom');
+    const joinRoomButton = document.getElementById('joinRoom');
+    const roomIDInput = document.getElementById('roomID');
+
+    createRoomButton.addEventListener('click', () => {
+      socket.emit('createRoom');
+    });
+
+    joinRoomButton.addEventListener('click', () => {
+      const roomID = roomIDInput.value;
+      socket.emit('joinRoom', roomID);
+    });
+
+    socket.on('roomCreated', (roomID) => {
+        window.location.href = `room.html?room=${roomID}`;
+    });
+    socket.on('joinedRoom', (roomID) => {
+        window.location.href = `room.html?room=${roomID}`;
+    });
+
+    socket.on('roomNotFound', () => {
+      alert('Room not found! Please try again.');
+    });
+  </script>
+</body>
+</html>
